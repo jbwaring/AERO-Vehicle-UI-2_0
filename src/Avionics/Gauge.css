@@ -1,4 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 .gauge-wrapper {
+  font-family: Lato;
   width: 142px;
   height: 152px;
   background: rgba(255, 255, 255, 0.02);
@@ -9,6 +11,7 @@
 }
 
 .outer-gauge-ring {
+  font-family: Lato;
   width: 119px;
   height: 104.21px;
   position: relative;
@@ -17,6 +20,7 @@
 }
 
 .gauge-center-text {
+  font-family: Lato;
   width: 142px;
   height: 152px;
   line-height: 152px;
@@ -30,6 +34,7 @@
 }
 
 .gauge-unit-text {
+  font-family: Lato;
   width: 142px;
   height: 50px;
   line-height: 50px;
@@ -43,6 +48,7 @@
 }
 
 .gauge-arc-wrapper {
+  font-family: Lato;
   width: 142px;
   height: 152px;
   position: absolute;
@@ -52,11 +58,11 @@
 }
 
 .gauge-text {
+  font-family: Lato;
   position: absolute;
   width: 142px;
   height: 50px;
   top: 30px;
-  font-family: Lato;
   font-style: normal;
   font-weight: normal;
   font-size: 12px;

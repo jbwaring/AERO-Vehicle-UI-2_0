@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 // import '../Home.css'
 import './Avionics.css'
 import Gauge from './Gauge';
-
+import cryptoRandomString from 'crypto-random-string';
 const mainFontSizeDebug = 25;
 const unitFontSizeDebug = 16;
 const textFontSizeDebug = 12;
@@ -14,13 +14,16 @@ const Avionics = (props) => {
   const ws = props.socket
   const [buffer, setBuffer] = useState({
     "sim/flightmodel/engine/ENGN_N2_": {
-      index: [0, 1]
+      index: [0, 1],
+      values: []
     },
     "sim/flightmodel/engine/ENGN_N1_": {
-      index: [0, 1]
+      index: [0, 1],
+      values: []
     },
     "sim/flightmodel/engine/ENGN_EGT_c": {
-      index: [0, 1]
+      index: [0, 1],
+      values: []
     }
   })
   const [state, setState] = useState(initialState);
@@ -34,43 +37,23 @@ const Avionics = (props) => {
     }
     //console.log(request)
     ws.send(JSON.stringify(request))
-  }, 10)
+  }, 100)
 
   ws.onmessage = function (event) {
     const json = JSON.parse(event.data);
-    let newState = {}
-    for (const [stateKey, stateValue] of Object.entries(state)) {
-      for (const [responseKey, responseValue] of Object.entries(json)) { 
-        if (stateValue.dref === responseKey) { 
-        
-          let newValue = responseValue[stateValue.index]
-          // //console.log(stateValue)
-          //console.log(newValue)
-          newState = {
-            ...newState,
-            [stateKey]: {
-              ...stateValue,
-              error: false,
-              value: newValue
-            }
-          }
-          
-          // //console.log(state)
-        }
-      }
+    let prevState = { ...buffer };
+    for (const [key, value] of Object.entries(buffer)) { 
+      prevState[key].values = json[key]
     }
-    setState({
-            ...state, 
-            ...newState
-          })
-    
+    console.log(prevState)
+    setBuffer(prevState)
   };
 
 
   
   let gaugeList = [];
     Object.keys(state).map((key) => { 
-      gaugeList.push(<Gauge key={`${state[key].dref}${Math.floor(Math.random() * 255)}`} value={state[key].value} index={state[key].index} error={ state[key].error} maxValue={state[key].maxValue} text={state[key].text} unit={state[key].unit} decimals={state[key].decimals} mainFontSize={state[key].mainFontSize} unitFontSize={state[key].unitFontSize} textFontSize={state[key].textFontSize}/>);
+      gaugeList.push(<Gauge key={`${state[key].dref}${cryptoRandomString({length: 64, characters: 'ABCDEF'})}`} value={buffer[state[key].dref].values[state[key].index]} index={state[key].index} error={ state[key].error} maxValue={state[key].maxValue} text={state[key].text} unit={state[key].unit} decimals={state[key].decimals} mainFontSize={state[key].mainFontSize} unitFontSize={state[key].unitFontSize} textFontSize={state[key].textFontSize}/>);
     })
     
     return (<div>

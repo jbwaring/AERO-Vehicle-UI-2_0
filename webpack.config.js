@@ -1,7 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
-
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
 module.exports = {
   entry: "./src/index.js",
   output: {
@@ -9,6 +9,11 @@ module.exports = {
     path: path.resolve("dist"),
     publicPath: "/",
   },
+  resolve: {
+    fallback: {
+      "fs": false
+    },
+},
   module: {
     rules:[
       {
@@ -47,11 +52,11 @@ module.exports = {
                 ],
              },
     ], 
-  },  
-  
+  },
   plugins: [
     new HTMLWebpackPlugin({
       template: "/public/index.html"
     }),
+    new NodePolyfillPlugin(),
   ]
 }
