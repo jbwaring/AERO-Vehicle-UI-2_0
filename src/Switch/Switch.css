@@ -1,0 +1,11 @@
+.SwitchWrapperDiv {
+  height: 72px;
+  display: grid;
+  grid-template-columns: 134px 100px;
+  padding: 10px;
+  align-items: center;
+  justify-items: center;
+}
+/* *{
+  cursor: none;
+} */
