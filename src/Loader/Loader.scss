@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+
+#loader-terminal {
+    font-family: 'Space Mono', monospace;
+    color: antiquewhite;
+    white-space: pre-wrap;
+    max-height: 1080px;
+    overflow: hidden;
+}
+
+#loader-background-image{
+    position: absolute;
+    width: 1920px;
+    height: 1080px;
+    top: 0px;
+    left: 0px;
+    transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+#home-background-image{
+    opacity: 0;
+    position: absolute;
+    width: 1920px;
+    height: 1080px;
+    top: 0px;
+    left: 0px;
+    transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+#terminal-glass {
+position: absolute;
+width: 1073px;
+height: 705px;
+left: 424px;
+top: 187px;
+opacity: 0;
+padding: 20px;
+background: rgba( 255, 255, 255, 0.4 );
+box-shadow: 0 8px 32px 0 rgba(125, 126, 143, 0.37);
+backdrop-filter: blur( 40px );
+-webkit-backdrop-filter: blur( 40px );
+border-radius: 40px;
+border: 5px solid rgba( 255, 255, 255, 0.18 );
+transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}

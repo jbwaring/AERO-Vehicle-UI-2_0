@@ -1,0 +1,104 @@
+#map-canvas {
+    position: absolute;
+    width: 830px;
+    height: 661px;
+    left: 545px;
+    top: 322px;
+    background: rgba( 255, 255, 255, 0.4 );
+    box-shadow: 0 8px 32px 0 rgba(125, 126, 143, 0.37);
+    backdrop-filter: blur( 40px );
+    -webkit-backdrop-filter: blur( 40px );
+    border-radius: 40px;
+    border: 5px solid rgba( 255, 255, 255, 0.18 );
+    transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    overflow: hidden
+    }
+
+.map-container {
+        height: 661px;
+        width: 830px;
+}
+.map-container a {
+        display: none;
+}
+
+
+#map-zoom-out{
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    left: 729px;
+    top: 265px;
+    background: rgba( 255, 255, 255, 0.1 );
+    box-shadow: 0 8px 32px 0 rgba(125, 126, 143, 0.37);
+    backdrop-filter: blur( 40px );
+    -webkit-backdrop-filter: blur( 40px );
+    border-radius: 40px;
+    border: 5px solid rgba( 255, 255, 255, 0.18 );
+    transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: flex;
+}
+
+#map-zoom-out img {
+    width: 42px;
+    height: 42px;
+    margin: auto;
+    display: block;
+    
+}
+#map-zoom-in{
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    left: 729px;
+    top: 158px;
+    background: rgba( 255, 255, 255, 0.1 );
+    box-shadow: 0 8px 32px 0 rgba(125, 126, 143, 0.37);
+    backdrop-filter: blur( 40px );
+    -webkit-backdrop-filter: blur( 40px );
+    border-radius: 40px;
+    border: 5px solid rgba( 255, 255, 255, 0.18 );
+    transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: flex;
+}
+
+#map-zoom-in img {
+    width: 42px;
+    height: 42px;
+    margin: auto;
+    display: block;
+    
+}
+#map-align{
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    left: 729px;
+    top: 51px;
+    background: rgba( 255, 255, 255, 0.1 );
+    box-shadow: 0 8px 32px 0 rgba(125, 126, 143, 0.37);
+    backdrop-filter: blur( 40px );
+    -webkit-backdrop-filter: blur( 40px );
+    border-radius: 40px;
+    border: 5px solid rgba( 255, 255, 255, 0.18 );
+    transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: flex;
+}
+
+#map-align img {
+    width: 42px;
+    height: 42px;
+    margin: auto;
+    display: block;
+    
+}
+
+
+#airplane-icon {
+    position: fixed;
+    width: 58px;
+    height: 58px;
+    left: 386px;
+    top: 302px;
+    transition: 1s ease-in-out;
+}

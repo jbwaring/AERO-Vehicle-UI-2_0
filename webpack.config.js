@@ -25,15 +25,8 @@ module.exports = {
         test: /\.html$/,
         use: "html-loader"
       },
-      /*Choose only one of the following two: if you're using 
-      plain CSS, use the first one, and if you're using a
-      preprocessor, in this case SASS, use the second one*/
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
-      },
-      {
-        test: /\.scss$/,
+        test: /\.(scss|css)$/,
         use:[
           "style-loader",
           "css-loader",
@@ -41,16 +34,9 @@ module.exports = {
         ],
       },
       {
-              test: /\.svg$/,
-              use: [
-                {
-                  loader: 'svg-url-loader',
-                  options: {
-                     limit: 10000,
-                   },
-                },
-                ],
-             },
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
     ], 
   },
   plugins: [

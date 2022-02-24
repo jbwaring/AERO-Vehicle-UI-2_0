@@ -1,29 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 .gauge-wrapper {
   font-family: Lato;
-  width: 142px;
-  height: 152px;
-  background: rgba(255, 255, 255, 0.02);
-  position: relative;
-  opacity: 0.7;
-  border-radius: 10px;
-  margin: 10px;
-}
+  width: 176px;
+  height: 190px;
 
-.outer-gauge-ring {
-  font-family: Lato;
-  width: 119px;
-  height: 104.21px;
-  position: relative;
-  left: 11px;
-  top: 18px;
+  position: fixed;
+  margin: 10px;
+  background: rgba( 255, 255, 255, 0.4 );
+  box-shadow: 0 8px 32px 0 rgba(125, 126, 143, 0.37);
+  backdrop-filter: blur( 40px );
+  -webkit-backdrop-filter: blur( 40px );
+  border-radius: 20px;
+  border: 5px solid rgba( 255, 255, 255, 0.18 );
+  transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  overflow: hidden
 }
 
 .gauge-center-text {
   font-family: Lato;
-  width: 142px;
-  height: 152px;
-  line-height: 152px;
+  width: 176px;
+  height: 190px;
+  line-height: 190px;
   position: absolute;
   left: 0px;
   top: 0px;
@@ -35,32 +32,22 @@
 
 .gauge-unit-text {
   font-family: Lato;
-  width: 142px;
-  height: 50px;
+  width: 176px;
+  height: 190px;
   line-height: 50px;
   font-size: 16px;
   position: absolute;
   left: 0px;
-  top: 85px;
+  top: 120px;
   text-align: center;
   margin: 0;
   font-weight: bolder;
 }
 
-.gauge-arc-wrapper {
-  font-family: Lato;
-  width: 142px;
-  height: 152px;
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  margin: 0;
-}
-
 .gauge-text {
   font-family: Lato;
   position: absolute;
-  width: 142px;
+  width: 176px;
   height: 50px;
   top: 30px;
   font-style: normal;

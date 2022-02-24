@@ -1,89 +1,60 @@
 import React, {useState, useEffect, useRef} from "react";
+import Gauge from "../Avionics/Gauge";
+import Map from "../Map/Map";
 import './Home.css'
-import DockIcon from "./DockIcon/DockIcon";
-import Cabin from '../Cabin/Cabin'
-import Avionics from "../Avionics/Avionics";
-import backgroundImage from '/public/home-background.svg'
-import dockBackground from '/public/dock-background.svg'
-const dockElements = [
-    {
-       title: "Map",
-        icon: "location_on"
-    },
-    {
-       title: "Comms",
-        icon: "call"
-    },
-    {
-       title: "Power",
-        icon: "settings"
-    },
-    {
-       title: "Avionics",
-        icon: "sensors"
-    },
-    {
-       title: "Cabin",
-        icon: "cabin"
-    },
-]
+
 
 
 const Home = (props) => {
     const socket = useRef(props.socket)
-    const [state, setState] = useState({
-        activePage: 0,
-    })
-    const onDockIconClick = (props) => {
-        let newActiveBarCoordinates = Array.from(dockElements, (element) => {
+   
+    socket.current.onmessage = function (event) {
+        console.log(`EVENT: ${event}`)
+    }
 
-            let rect = document.getElementById(`${element.title}-ICON`).getBoundingClientRect();
-            return (rect.left + rect.right) / 2
-        })
-        let buttonRow = Array.from(dockElements, element => element.title)
-        let newIndex = buttonRow.indexOf(props.buttonPressed)
-        let newCoordinate = newActiveBarCoordinates[newIndex];
-        let activeBar = document.getElementById("DockContainerActiveSelectionBar");
-        activeBar.style.left = `${newCoordinate - 34}px`;
-        setState({
-            activePage: newIndex
-        })
-      }
-    
+    useInterval(() => { 
+        const initObj = {
+            command: "CONNECT"
+        }
+        socket.current.send(JSON.stringify(initObj))
+        console.log(`Trying to communicate with XPlane...`)
+    }, 2000)
+
    
     return (
-        <div id="home-canvas" style={{ 
-            backgroundImage: `url(${backgroundImage})` 
-          }}>
+        <div id="home-canvas">
 
-            {state.activePage === 0 && (<div className="MapProvider">
-        <h1>MAP</h1>
-      </div>)}
-      {state.activePage === 1 && (<div className="AvionicsProvider">
-      <h1>COMMS</h1>
-      </div>)}
-      {state.activePage === 2 && (<div className="CabinProvider">
-      <h1>POWER</h1>
-      </div>)}
-      {state.activePage === 3 && (<div className="PowerProvider">
-                <Avionics socket={ socket.current}/>
-            </div>)}
-            {state.activePage === 4 && (<div className="AvionicsProvider">
-                <Cabin socket={socket.current} />
-      </div>)}
-            
-            
-            <div id="dock">
-            <img src={dockBackground} id="dock-background-image"/>
-            <div id="DockContainerActiveSelectionBar" />
-                <div id="dock-drawer" style={{ gridTemplateColumns:`repeat(${dockElements.length}, 1fr)` }}>
-                    {/* <DockIcon icon="location_on" title="Map" onClick={ onDockIconClick}/> */}
-                    {dockElements.map(dockElement => <DockIcon id={`${dockElement.title}-ICON`} icon={dockElement.icon} title={dockElement.title} onClick={onDockIconClick} key={dockElement.title}/> )}
-                   
-                </div>
-            </div>
+            <Map socketURL={ props.socketURL}/>
+            <Gauge value={100} index={0} error={false} maxValue={1000} text={"Speed"} unit={"km/h"} decimals={0} mainFontSize={30} unitFontSize={20} textFontSize={18} socketURL={props.socketURL} dref={'sim/flightmodel/position/groundspeed'} index={0} conversionFactor={3.6} left={545} top={85}/>;
+            <Gauge value={100} index={0} error={false} maxValue={1000} text={"Altitude"} unit={"m"} decimals={0} mainFontSize={30} unitFontSize={20} textFontSize={18} socketURL={props.socketURL} dref={'sim/flightmodel/position/y_agl'} index={0} conversionFactor={1} left={763} top={85}/>;
+            <Gauge value={100} index={0} error={false} maxValue={1000} text={"Vertical Speed"} unit={"m/s"} decimals={0} mainFontSize={30} unitFontSize={20} textFontSize={18} socketURL={props.socketURL} dref={'sim/cockpit2/gauges/indicators/vvi_fpm_pilot'} index={0} conversionFactor={0.00508} left={981} top={85}/>;
+            <Gauge value={100} index={0} error={false} maxValue={1000} text={"Temperature"} unit={"C"} decimals={0} mainFontSize={30} unitFontSize={20} textFontSize={18} socketURL={props.socketURL} dref={'sim/weather/temperature_ambient_c'} index={0} conversionFactor={1} left={1199} top={85}/>;
         </div>
     )
 }
 
 export default Home;
+
+
+
+
+
+function useInterval(callback, delay) {
+    const savedCallback = useRef();
+  
+    // Remember the latest callback.
+    useEffect(() => {
+      savedCallback.current = callback;
+    }, [callback]);
+  
+    // Set up the interval.
+    useEffect(() => {
+      function tick() {
+        savedCallback.current();
+      }
+      if (delay !== null) {
+        let id = setInterval(tick, delay);
+        return () => clearInterval(id);
+      }
+    }, [delay]);
+  }

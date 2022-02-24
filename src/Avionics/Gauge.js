@@ -6,26 +6,36 @@ import { Stage, Layer, Rect, Text, Circle, Line, Arc } from 'react-konva';
 const percent = 0.8;
 // 0 --> 280
 const Gauge = (props) => { 
+
+  const socket = new WebSocket(props.socketURL)
+  const [value, setValue] = useState(0);
+
+  useInterval(async () => {
+    let request = {
+      "isUsingMultipleDREF": "true",
+      [props.dref] : [props.index]
+    }
+
+    socket.send(JSON.stringify(request))
+  }, 1000)
+  socket.onmessage = (event) => { 
+    
+
+    try {
+      const json = JSON.parse(event.data)
+            setValue(json[props.dref])
+        } catch (error) {
+            console.log(error)
+        }
+  }
+
+
   return (
-    <div className='gauge-wrapper' key={props.key}>
-      <img src={outerGaugeRing} className="outer-gauge-ring" />
-      <p className='gauge-center-text' style={{ fontSize: props.mainFontSize}} >{parseFloat(props.value).toFixed(props.decimals)}</p>
+    <div className='gauge-wrapper' style={{left: props.left, top: props.top}}>
+      <p className='gauge-center-text' style={{ fontSize: props.mainFontSize}} >{parseFloat(value*props.conversionFactor).toFixed(props.decimals)}</p>
       <p className='gauge-unit-text' style={{ fontSize: props.unitFontSize}} >{props.unit}</p>
       <p className='gauge-text' style={{ fontSize: props.textFontSize}} >{props.text}</p>
-      <div className='gauge-arc-wrapper'>
-        <Stage width={142} height={152}>
-          <Layer>
-            < Arc x={71} y={76} radius={50} angle={(props.value/props.maxValue)*280} rotation={130} innerRadius={50} outerRadius={60} fill="green" clockwise={false}/>
-          </Layer>
-          </Stage>
-      </div>
       {props.error && <div className='gauge-error-div'>
-                  <Stage width={142} height={152}>
-                    <Layer>
-            <Line points={[0, 0, 142, 152]} stroke="red" strokeWidth={8}/>
-            <Line points={[0, 152, 142, 0]} stroke="red" strokeWidth={8} />
-                    </Layer>
-                  </Stage>
           </div>}
     </div>);
 
@@ -35,3 +45,22 @@ const Gauge = (props) => {
 
 export default Gauge;
 
+function useInterval(callback, delay) {
+  const savedCallback = useRef();
+
+  // Remember the latest callback.
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  // Set up the interval.
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
+}

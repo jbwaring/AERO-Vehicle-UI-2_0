@@ -1,13 +1,4 @@
 
-#home-canvas {
-    height: 1080px;
-    width: 1920px;
-    /* background-color: #1A1C48; */
-    /* background-image: url('/public/home-background.svg'); */
-    background-size: cover;
-    background-repeat: no-repeat;
-    color: white;
-}
 
 #dock {
     position: absolute;
@@ -17,29 +8,6 @@
     background-size: cover;
     background-repeat: no-repeat;
     height: 140px;
+    
 
 }
-#dock-background-image {
-    width: 1920px;
-}
-#dock-drawer {
-    position: inherit;
-    width: 800px;
-    height: 68px;
-    left: 560px;
-    top: 61px;
-    display: grid;
-    /* background-color: royalblue; */
-    justify-items: center;
-}
-
-#DockContainerActiveSelectionBar {
-    position: inherit;
-    width: 68px;
-    height: 4px;
-    left: 606px;
-    top: 125px;
-    transition-duration: 0.1s;
-    background: #ffffff;
-    border-radius: 8px;
-  }
