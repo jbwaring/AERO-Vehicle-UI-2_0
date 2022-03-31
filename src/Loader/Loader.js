@@ -5,7 +5,7 @@ import Home from '../Home/Home'
 import loaderBackground from '/public/Loader-Background.svg'
 import homeBackground from '/public/home-background.svg'
 // const webSocketURL = 'ws://192.168.2.46:9001'
-const webSocketURL = 'ws:localhost:9001'
+const webSocketURL = 'ws://172.31.62.29:8086'
 
 const Loader = () => {
 

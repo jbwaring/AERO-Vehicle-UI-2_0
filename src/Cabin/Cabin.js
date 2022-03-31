@@ -1,76 +1,125 @@
 
 import React, {useState, useEffect, useRef} from "react";
 import Switch from "../Switch/Switch";
+import './Cabin.scss'
+
 
 const Cabin = (props) => {
 
-    const socket = useRef(props.socket)
+
     const [state, setState] = useState({
-        "sim/lights/main": {
-            dref: "sim/lights/main",
-            state: false,
-            onText: "ON",
-            offText: "OFF"
-        },
-        "sim/lights/secondary": {
-            dref: "sim/lights/secondary",
-            state: true,
-            onText: "ARM",
-            offText: "EXE"
-        },
-        "sim/cockpit2/switches/taxi_light_on": {
-            dref: "sim/cockpit2/switches/taxi_light_on",
-            state: false,
-            onText: "ON",
-            offText: "OFF"
-        }
+        "sim/cockpit/switches/gear_handle_status": 0,
+        "sim/graphics/animation/lights/airplane_panel_spill": 0
     })
-    let debug = true
-    const changeState = (childState) => { 
-        if (debug) { console.log(childState) }
-        if (childState.state === state[childState.dref].state) { 
-            // console.log("state is unchanged don't do anything (likely switch init)");
-            return;
-        }
+    const [socket, setSocket] = useState(new WebSocket(props.socketURL))
+  //  --- WebSocket Functions
 
-        if (childState.dref === "sim/cockpit2/switches/taxi_light_on") { 
-            let sendObj = {
-                "isUsingMultipleDREF": "true",
-                "sim/cockpit2/switches/taxi_light_on": ["0"],
-                "sim/cockpit2/autopilot/altitude_dial_ft": ["0"]
-                
+    socket.onopen = function(e) {
+    console.log(`onOpen -- CABIN`)    
+    };
+
+    socket.onmessage = function (event) {
+        try {
+            const message = JSON.parse(event.data)
+            console.log(message)
+            if (message.error) { 
+                const dref = message.dref
+                const actualValue = message.actualValue
+                console.log("ERROR")
+                setState({
+                    ...state, 
+                    [dref]: actualValue
+                })
+
+                console.log(state)
             }
-            socket.current.send(JSON.stringify(sendObj))
+        } catch (error) {
+            
         }
+    };
+
+    socket.onclose = function (event) {
+        console.log(`onClose`)
+    if (event.wasClean) {
+        console.log(event)
+    } else {
+        console.log('[close] Connection died');
+    }
+    };
+  
+    socket.onerror = function (error) {
+        console.log(`onError`)
+    console.log(`[error] ${error.message}`);
+    };
+
+
+    const setDREF = (newState, dref) => { 
+        // console.log(`Setting ${dref} to ${newState}.`)
+        let request = {
+            "setDREF": "true",
+            "dref": dref,
+            "value": newState
+          }
         
-
-        setState({
-            ...state,
-            [childState.dref]: {
-                ...childState
+        try {
+            if (!socket.CONNECTING) {
+                socket.send(JSON.stringify(request))
+                // console.log(request)
+            } else { 
+                //Do not change switch position
             }
-        })
+      
+            } catch (error) {
+              console.log(`Caught Error while sending ${error}`);
+            }
     }
 
-    socket.current.onmessage = (message) => {
-        message = JSON.parse(message.data)
-        console.log(message);
+    return (<div id="cabin-panel">
 
-        }
-    
-    
-    let switchList = [];
-    Object.keys(state).map((key) => { 
-        if (debug) { console.log(key) }
-        switchList.push(<Switch key={state[key].dref} debug={debug} state={state[key]} changeState={ changeState}/>);
-    })
-
-        return (<div>
-                    <h1>Cabin</h1>
-                    {debug && Object.keys(state).map((key) => { return <p key={state[key].dref}>{state[key].dref} ({state[key].onText}/{state[key].offText}) = { +state[key].state}</p>; })}
-                    {switchList}
-                </div>);
-
+        <h1 id="cabin-panel-title">Cabin</h1>
+        <div id="cabin-switch-panel">
+        <div className="switch">
+                <p>Landing Gear</p>
+                <Switch id="test-switch" debug={false} state={{
+            state: state["sim/cockpit/switches/gear_handle_status"],
+            onText: "DN",
+            offText: "UP",
+        
+        }} changeState={(subState) => { 
+            setDREF(subState, "sim/cockpit/switches/gear_handle_status")
+                }} />
+        </div>
+            
+        
+        <div className="switch">
+                <p>Panel Lights</p>
+                <Switch id="test-switch-2" debug={false} state={{
+            state: state["sim/cockpit/electrical/cockpit_lights"],
+            onText: "ON",
+            offText: "OFF",
+        
+        }} changeState={(subState) => { 
+            setDREF(subState, "sim/cockpit/electrical/cockpit_lights")
+                }} />
+        </div>
+        <Switch debug={false} state={{
+            state: false,
+            onText: "TESTON",
+            offText: "TESTOFF",
+        
+        }} changeState={(state) => { 
+            setDREF(state, "/sim/light")
+                }} />
+        <Switch debug={false} state={{
+            state: false,
+            onText: "TESTON",
+            offText: "TESTOFF",
+        
+        }} changeState={(state) => { 
+            setDREF(state, "/sim/light")
+                }} />
+            </div>
+            </div>)
 
 }
 

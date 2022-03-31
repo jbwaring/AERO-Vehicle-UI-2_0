@@ -58,9 +58,9 @@
 }
 
 .gauge-error-div {
-  width: 142px;
-  height: 152px;
-  background: rgba(232, 142, 7, 1);
+  width: 176px;
+  height: 190px;
+  background: rgb(232, 142, 7);
   position: absolute;
   opacity: 0.7;
   border-radius: 10px;

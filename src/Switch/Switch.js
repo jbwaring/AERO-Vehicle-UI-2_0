@@ -91,11 +91,8 @@ const Switch = (props) => {
     }
 
     useEffect( () => {
-        if(state.state) { 
-            props.changeState(state)
-        }else{
-            props.changeState(state)
-        }
+       props.changeState(state.state)
+        
     }, [state.state]);
     return (
         <div>

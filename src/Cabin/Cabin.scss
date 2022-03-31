@@ -1,0 +1,56 @@
+
+#cabin-panel {
+    position: absolute;
+    width: 432px;
+    height: 898px;
+    left: 51px;
+    top: 85px;
+    background: rgba( 255, 255, 255, 0.4 );
+    box-shadow: 0 8px 32px 0 rgba(125, 126, 143, 0.37);
+    backdrop-filter: blur( 40px );
+    -webkit-backdrop-filter: blur( 40px );
+    border-radius: 40px;
+    border: 5px solid rgba( 255, 255, 255, 0.18 );
+    transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    overflow: hidden
+}
+
+#cabin-panel-title{
+    position: fixed;
+    width: 432px;
+    height: 32px;
+    left: 0px;
+    top: 30px;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 100%;
+    text-align: center;
+    color: #000000;
+}
+
+#cabin-switch-panel {
+    position: fixed;
+    top: 200px;
+    width: 432px;
+    height: 500px;
+    display: grid;
+    grid-column: 1br;
+    align-items: center;
+    justify-items: center;
+}
+
+.switch {
+    height: 80px;
+    font-family: Lato;
+    line-height: 100%;
+}
+
+.switch p {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 100%;
+    text-align: center;
+}

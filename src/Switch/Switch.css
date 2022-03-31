@@ -1,4 +1,6 @@
 .SwitchWrapperDiv {
+  font-family: Lato;
+  font-weight: 700;
   height: 72px;
   display: grid;
   grid-template-columns: 134px 100px;

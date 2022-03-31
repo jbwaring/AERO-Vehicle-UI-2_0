@@ -100,5 +100,17 @@
     height: 58px;
     left: 386px;
     top: 302px;
-    transition: 1s ease-in-out;
+    transition: 0.2s ease-in-out;
 }
+
+.map-error-div {
+    width: 830px;
+    height: 661px;
+    background: rgb(232, 142, 7);
+    position: absolute;
+    opacity: 0.7;
+    margin: 0px;
+    top: 0px;
+    left: 0px;
+  }
+  
