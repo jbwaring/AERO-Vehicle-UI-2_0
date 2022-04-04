@@ -39,7 +39,7 @@ const Autopilot = (props) => {
             //         [dref]: actualValue
             //     })
 
-            //     console.log(state)
+            //     console.log(state) 
             // }
         } catch (error) {
             
