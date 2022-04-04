@@ -102,7 +102,7 @@ const Cabin = (props) => {
             setDREF(subState, "sim/cockpit/electrical/cockpit_lights")
                 }} />
         </div>
-        <Switch debug={false} state={{
+        {/* <Switch debug={false} state={{
             state: false,
             onText: "TESTON",
             offText: "TESTOFF",
@@ -117,9 +117,11 @@ const Cabin = (props) => {
         
         }} changeState={(state) => { 
             setDREF(state, "/sim/light")
-                }} />
+                }} /> */}
             </div>
-            </div>)
+    </div>
+    
+    )
 
 }
 

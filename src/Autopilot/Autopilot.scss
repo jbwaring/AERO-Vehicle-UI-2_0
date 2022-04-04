@@ -32,10 +32,11 @@
 
 #autopilot-switch-panel {
     position: fixed;
-    top: 200px;
+    top: 100px;
     width: 432px;
     height: 500px;
     display: grid;
+    grid-template-rows: 100px 100px 100px 100px 100px;
     grid-column: 1br;
     align-items: center;
     justify-items: center;
@@ -93,4 +94,38 @@
     text-align: center;
     border-radius: 10px;
     border: 3px solid aliceblue;
+}
+
+.autopilot-master-switch-button {
+    height: 80px;
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 55px;
+    background-color: white;
+    width: 160px;
+    text-align: center;
+    border-radius: 10px;
+    border: 3px solid aliceblue;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+}
+.autopilot-master-switch-light {
+    height: 10px;
+    background-color: lightgrey;
+    width: 100px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.autopilot-button-panel {
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    margin-top: 150px;
+    display: grid;
+    grid-template-columns: 200px 200px;
+    grid-template-rows: 100px 100px;
 }
